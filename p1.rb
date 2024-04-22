@@ -26,22 +26,12 @@ class WeatherDataAggregator
     puts "An error occurred: #{e.message}"
     nil
   end
-
-  def average_temperature(city, hours = 24)
-    temperatures = []
-    hours.times do
-      data = fetch_weather(city)
-      temperatures << data[:temperature] if data
-      sleep(3600)
-    end
-    temperatures.sum / temperatures.size.to_f
-  end
 end
 
 api_key = 'e1dabad546b95fc084d2c0263556f64b'
 weather_aggregator = WeatherDataAggregator.new(api_key)
 
-city = 'London,uk'
+city = 'London, UK'
 current_weather = weather_aggregator.fetch_weather(city)
 if current_weather
   puts "Current temperature in #{city}: #{current_weather[:temperature]}°C"
@@ -50,6 +40,3 @@ if current_weather
 else
   puts "Failed to fetch weather data for #{city}"
 end
-
-average_temp_24_hours = weather_aggregator.average_temperature(city)
-puts "Average temperature in #{city} over the last 24 hours: #{average_temp_24_hours.round(2)}°C"
